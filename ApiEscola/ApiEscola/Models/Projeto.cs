@@ -17,23 +17,23 @@ namespace ApiEscola.Models
 
         public int Ano { get; set; }
 
-        private List<string> _alunos;
+        private List<Aluno> _alunos;
 
-        public List<string> Alunos
+        public List<Aluno> Alunos
         {
             get
             {
-                return new List<string>(_alunos);
+                return new List<Aluno>(_alunos);
             }
             set
             {
                 if (value.Count > 3)
                     throw new ArgumentException("Um projeto pode ter no máximo 3 alunos");
 
-                _alunos = new List<string>(value);
+                _alunos = new List<Aluno>(value);
             }
         }
 
-        public Guid Professor { get; set; }
+        public Professor Professor { get; set; }
     }
 }

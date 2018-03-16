@@ -28,13 +28,13 @@ namespace ApiEscola.Models.Repos
             cp.ExecuteNonQuery();
 
             // Insere o aluno
-            foreach (string ra in p.Alunos)
+            foreach (Aluno a in p.Alunos)
             {
                 // Cria cada um dos alunos no banco
                 SqlCommand ca = new SqlCommand(
                     "UPDATE ApiAluno SET idProjeto=@proj WHERE RA=@ra",
                 conn);
-                ca.Parameters.AddWithValue("@ra", ra);
+                ca.Parameters.AddWithValue("@ra", a.RA);
                 ca.Parameters.AddWithValue("@idProjeto", p.Id);
 
                 ca.ExecuteNonQuery();
@@ -56,18 +56,18 @@ namespace ApiEscola.Models.Repos
             cp.Parameters.AddWithValue("@ano", p.Ano);
 
             // Modifica o professor
-            cp.Parameters.AddWithValue("@prof", p.Professor);
+            cp.Parameters.AddWithValue("@prof", p.Professor.Id);
             cp.Parameters.AddWithValue("@prof", p.Id);
             cp.ExecuteNonQuery();
 
             // Modifica os alunos
-            foreach (string ra in p.Alunos)
+            foreach (Aluno a in p.Alunos)
             {
                 SqlCommand ca = new SqlCommand(
                     "UPDATE ApiAluno SET idProjeto=@proj WHERE ra=@ra",
                 conn);
                 ca.Parameters.AddWithValue("@proj", p.Id);
-                ca.Parameters.AddWithValue("@ra", ra);
+                ca.Parameters.AddWithValue("@ra", a.RA);
                 ca.ExecuteNonQuery();
             }
 
@@ -88,27 +88,46 @@ namespace ApiEscola.Models.Repos
             {
                 while(r.Read())
                 {
-                    l.Add(new Projeto()
+                    Projeto p = new Projeto()
                     {
                         Nome = r.GetString(0),
                         Descricao = r.GetString(1),
                         Ano = r.GetInt32(2),
-                        Professor = r.GetGuid(3)
-                    });
-                }
-            }
+                    };
 
-            foreach (Projeto p in l)
-            {
-                comm = new SqlCommand(
-                    "SELECT ra FROM ApiAluno WHERE idProjeto=@proj",
-                conn);
-                comm.Parameters.AddWithValue("@proj", p.Id);
+                    // Lê o professor
+                    Guid idProfessor = r.GetGuid(3);
+                    SqlCommand cprof = new SqlCommand(
+                        "SELECT Nome, Email, FROM ApiProfessor WHERE idProfessor=@id",
+                    conn);
+                    cprof.Parameters.AddWithValue("@id", idProfessor);
+                    using (SqlDataReader r2 = cprof.ExecuteReader())
+                    {
+                        r2.Read();
 
-                using (SqlDataReader r = comm.ExecuteReader())
-                {
-                    while(r.Read())
-                        p.Alunos.Add(r.GetString(0));
+                        p.Professor = new Professor(r2.GetString(0), r2.GetString(1));
+                    }
+
+                    // Lê o aluno
+                    SqlCommand cal = new SqlCommand(
+                        "SELECT RA, Nome, Email FROM ApiAluno WHERE idProjeto=@id",
+                    conn);
+                    cal.Parameters.AddWithValue("@id", p.Id);
+                    
+                    using (SqlDataReader r2 = cal.ExecuteReader())
+                    {
+                        while (r2.Read())
+                        {
+                            p.Alunos.Add(new Aluno()
+                            {
+                                RA = r2.GetString(0),
+                                Nome = r2.GetString(1),
+                                Email = r2.GetString(2)
+                            });
+                        }
+                    }
+
+                    l.Add(p);
                 }
             }
 

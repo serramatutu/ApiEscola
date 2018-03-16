@@ -8,16 +8,12 @@ namespace ApiEscola.Models
 {
     public class Aluno
     {
+        public Aluno()
+        { }
+
         public Aluno(string ra)
         {
             RA = ra;
-        }
-
-        public Aluno(string ra, string nome, string email)
-        {
-            RA = ra;
-            Nome = nome;
-            Email = email;
         }
 
         [StringLength(5, MinimumLength = 5, ErrorMessage = "RA deve conter 5 caracteres")]
