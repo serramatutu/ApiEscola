@@ -9,7 +9,9 @@ namespace ApiEscola.Models.Repos
     {
         protected static SqlConnection GetConnection()
         {
-            return new SqlConnection(WebConfigurationManager.ConnectionStrings["regulus.BD16164.dbo"].ConnectionString);
+            var conn = new SqlConnection(WebConfigurationManager.ConnectionStrings["BD16164"].ConnectionString);
+            conn.Open();
+            return conn;
         }
 
         public void AddProjeto(Projeto p)
@@ -74,66 +76,93 @@ namespace ApiEscola.Models.Repos
             conn.Close();
         }
 
-        public IEnumerable<Projeto> GetProjetoByName(string nome)
+        public Projeto GetProjetoById(Guid id)
         {
-            SqlConnection conn = GetConnection();
+            return GetProjetoById(id, GetConnection());
+        }
 
+        protected Projeto GetProjetoById(Guid id, SqlConnection conn)
+        {
             SqlCommand comm = new SqlCommand(
-                "SELECT Nome, Descricao, Ano, idProfessor FROM ApiProjeto WHERE Nome=@nome", 
+                "SELECT Nome, Descricao, Ano, idProfessor FROM ApiProjeto WHERE Id=@id",
             conn);
-            comm.Parameters.AddWithValue("@nome", nome);
+            comm.Parameters.AddWithValue("@id", id);
 
-            List<Projeto> l = new List<Projeto>();
+            Projeto p = null;
+            Guid idProfessor;
             using (SqlDataReader r = comm.ExecuteReader())
             {
-                while(r.Read())
+                r.Read();
+                p = new Projeto()
                 {
-                    Projeto p = new Projeto()
+                    Id = id,
+                    Nome = r.GetString(0),
+                    Descricao = r.GetString(1),
+                    Ano = r.GetInt32(2)
+                };
+
+                idProfessor = r.GetGuid(3);
+            }
+
+            if (p == null)
+                return null;
+
+            // TODO: Ta errado
+            SqlCommand cprof = new SqlCommand(
+                "SELECT Nome, Email FROM ApiProfessor WHERE idProfessor=@id",
+            conn);
+            cprof.Parameters.AddWithValue("@id", idProfessor);
+            using (SqlDataReader r2 = cprof.ExecuteReader())
+            {
+                r2.Read();
+
+                p.Professor = new Professor(r2.GetString(0), r2.GetString(1));
+            }
+
+            // Lê o aluno
+            SqlCommand cal = new SqlCommand(
+                "SELECT RA, Nome, Email FROM ApiAluno WHERE idProjeto=@id",
+            conn);
+            cal.Parameters.AddWithValue("@id", p.Id);
+
+            using (SqlDataReader r2 = cal.ExecuteReader())
+            {
+                while (r2.Read())
+                {
+                    p.Alunos.Add(new Aluno()
                     {
-                        Nome = r.GetString(0),
-                        Descricao = r.GetString(1),
-                        Ano = r.GetInt32(2),
-                    };
-
-                    // Lê o professor
-                    Guid idProfessor = r.GetGuid(3);
-                    SqlCommand cprof = new SqlCommand(
-                        "SELECT Nome, Email, FROM ApiProfessor WHERE idProfessor=@id",
-                    conn);
-                    cprof.Parameters.AddWithValue("@id", idProfessor);
-                    using (SqlDataReader r2 = cprof.ExecuteReader())
-                    {
-                        r2.Read();
-
-                        p.Professor = new Professor(r2.GetString(0), r2.GetString(1));
-                    }
-
-                    // Lê o aluno
-                    SqlCommand cal = new SqlCommand(
-                        "SELECT RA, Nome, Email FROM ApiAluno WHERE idProjeto=@id",
-                    conn);
-                    cal.Parameters.AddWithValue("@id", p.Id);
-                    
-                    using (SqlDataReader r2 = cal.ExecuteReader())
-                    {
-                        while (r2.Read())
-                        {
-                            p.Alunos.Add(new Aluno()
-                            {
-                                RA = r2.GetString(0),
-                                Nome = r2.GetString(1),
-                                Email = r2.GetString(2)
-                            });
-                        }
-                    }
-
-                    l.Add(p);
+                        RA = r2.GetString(0),
+                        Nome = r2.GetString(1),
+                        Email = r2.GetString(2)
+                    });
                 }
             }
 
             conn.Close();
 
-            return l;
+            return p;
+        }
+
+        public IEnumerable<Projeto> GetProjetoByName(string nome)
+        {
+            SqlConnection conn = GetConnection();
+
+            SqlCommand comm = new SqlCommand(
+                "SELECT Id FROM ApiProjeto WHERE Nome like @nome", 
+            conn);
+            comm.Parameters.AddWithValue("@nome", "%" + nome + "%");
+
+            List<Guid> idProjetos = new List<Guid>();
+            using (SqlDataReader r = comm.ExecuteReader())
+            {
+                while (r.Read())
+                    idProjetos.Add(r.GetGuid(0));
+            }
+
+            List<Projeto> projetos = idProjetos.ConvertAll(x => GetProjetoById(x, conn));
+            conn.Close();
+
+            return projetos;
         }
 
         public void RemoveProjeto(Guid idProjeto)

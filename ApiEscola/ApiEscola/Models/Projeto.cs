@@ -17,7 +17,7 @@ namespace ApiEscola.Models
 
         public int Ano { get; set; }
 
-        private List<Aluno> _alunos;
+        private List<Aluno> _alunos = new List<Aluno>();
 
         public List<Aluno> Alunos
         {
