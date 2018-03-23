@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiEscola", "ApiEscola\ApiEscola.csproj", "{02C30429-9831-4688-BAD2-BFEE95288B77}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClienteEscola", "ClienteEscola\ClienteEscola.csproj", "{6A80E055-1231-42DF-8903-029822136BDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{02C30429-9831-4688-BAD2-BFEE95288B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02C30429-9831-4688-BAD2-BFEE95288B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02C30429-9831-4688-BAD2-BFEE95288B77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A80E055-1231-42DF-8903-029822136BDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A80E055-1231-42DF-8903-029822136BDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A80E055-1231-42DF-8903-029822136BDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A80E055-1231-42DF-8903-029822136BDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
