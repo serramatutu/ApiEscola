@@ -20,13 +20,13 @@ namespace ApiEscola.Models.Repos
 
             // Insere o projeto
             SqlCommand cp = new SqlCommand(
-                "INSERT ApiProjeto(Id, Nome, Descricao, Ano, idProfessor) VALUES(@id, @nome, @desc, @ano, @prof)",
+                "INSERT ApiProjeto(idProjeto, Nome, Descricao, Ano, idProfessor) VALUES(@id, @nome, @desc, @ano, @prof)",
             conn);
             cp.Parameters.AddWithValue("@id", p.Id);
             cp.Parameters.AddWithValue("@nome", p.Nome);
             cp.Parameters.AddWithValue("@desc", p.Descricao);
             cp.Parameters.AddWithValue("@ano", p.Ano);
-            cp.Parameters.AddWithValue("@prof", p.Professor);
+            cp.Parameters.AddWithValue("@prof", p.Professor.Id);
             cp.ExecuteNonQuery();
 
             // Insere o aluno
@@ -50,7 +50,7 @@ namespace ApiEscola.Models.Repos
             SqlConnection conn = GetConnection();
 
             SqlCommand cp = new SqlCommand(
-                "UPDATE ApiProjeto SET Nome=@nome, Descricao=@desc, Ano=@ano, idProfessor=@prof WHERE Id=@id",
+                "UPDATE ApiProjeto SET Nome=@nome, Descricao=@desc, Ano=@ano, idProfessor=@prof WHERE idProjeto=@id",
             conn);
             // Modifica o projeto em si
             cp.Parameters.AddWithValue("@nome", p.Nome);
@@ -59,7 +59,7 @@ namespace ApiEscola.Models.Repos
 
             // Modifica o professor
             cp.Parameters.AddWithValue("@prof", p.Professor.Id);
-            cp.Parameters.AddWithValue("@prof", p.Id);
+            cp.Parameters.AddWithValue("@id", p.Id);
             cp.ExecuteNonQuery();
 
             // Modifica os alunos
@@ -84,7 +84,7 @@ namespace ApiEscola.Models.Repos
         protected Projeto GetProjetoById(Guid id, SqlConnection conn)
         {
             SqlCommand comm = new SqlCommand(
-                "SELECT Nome, Descricao, Ano, idProfessor FROM ApiProjeto WHERE Id=@id",
+                "SELECT Nome, Descricao, Ano, idProfessor FROM ApiProjeto WHERE idProjeto=@id",
             conn);
             comm.Parameters.AddWithValue("@id", id);
 
@@ -102,12 +102,12 @@ namespace ApiEscola.Models.Repos
                 };
 
                 idProfessor = r.GetGuid(3);
+                System.Diagnostics.Debug.WriteLine("!!!!!!!!!!!! " + idProfessor);
             }
 
             if (p == null)
                 return null;
 
-            // TODO: Ta errado
             SqlCommand cprof = new SqlCommand(
                 "SELECT Nome, Email FROM ApiProfessor WHERE idProfessor=@id",
             conn);
@@ -116,7 +116,12 @@ namespace ApiEscola.Models.Repos
             {
                 r2.Read();
 
-                p.Professor = new Professor(r2.GetString(0), r2.GetString(1));
+                p.Professor = new Professor()
+                {
+                    Nome = r2.GetString(0),
+                    Email = r2.GetString(1),
+                    Id = idProfessor
+                };
             }
 
             // Lê o aluno
@@ -148,7 +153,7 @@ namespace ApiEscola.Models.Repos
             SqlConnection conn = GetConnection();
 
             SqlCommand comm = new SqlCommand(
-                "SELECT Id FROM ApiProjeto WHERE Nome like @nome", 
+                "SELECT idProjeto FROM ApiProjeto WHERE Nome like @nome", 
             conn);
             comm.Parameters.AddWithValue("@nome", "%" + nome + "%");
 

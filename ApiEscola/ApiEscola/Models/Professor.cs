@@ -8,6 +8,9 @@ namespace ApiEscola.Models
 {
     public class Professor
     {
+        public Professor()
+        { }
+
         public Professor(Guid id)
         {
             Id = id;

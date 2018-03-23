@@ -20,5 +20,33 @@ namespace ApiEscola.Controllers
         {
             return repo.GetProjetoByName(nome);
         }
+
+        [Route("getbyid/{id}")]
+        [HttpGet]
+        public Projeto GetProjetoById([FromUri]Guid id)
+        {
+            return repo.GetProjetoById(id);
+        }
+
+        [Route("insert")]
+        [HttpPost]
+        public void InsertProjeto([FromBody]Projeto p)
+        {
+            repo.AddProjeto(p);
+        }
+
+        [Route("delete/{id}")]
+        [HttpDelete]
+        public void DeleteProjeto([FromUri]Guid id)
+        {
+            repo.RemoveProjeto(id);
+        }
+
+        [Route("change")]
+        [HttpPut]
+        public void ChangeProjeto([FromBody]Projeto p)
+        {
+            repo.ChangeProjeto(p);
+        }
     }
 }
