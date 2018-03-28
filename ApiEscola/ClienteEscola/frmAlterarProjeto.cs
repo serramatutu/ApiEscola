@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ClienteEscola
 {
-    public partial class frmCliente : Form
+    public partial class frmAlterarProjeto : Form
     {
-        public frmCliente()
+        public frmAlterarProjeto()
         {
             InitializeComponent();
         }

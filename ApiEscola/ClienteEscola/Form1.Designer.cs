@@ -1,6 +1,6 @@
 ﻿namespace ClienteEscola
 {
-    partial class Form1
+    partial class frmCliente
     {
         /// <summary>
         /// Variável de designer necessária.
@@ -151,7 +151,7 @@
             this.button5.Text = "Inserir Projeto";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // frmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -167,8 +167,8 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "frmCliente";
+            this.Text = "Cliente Escola";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
