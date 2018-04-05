@@ -28,92 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.cbxAluno3 = new System.Windows.Forms.ComboBox();
+            this.cbxAluno2 = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbxAluno1 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbxOrientador = new System.Windows.Forms.ComboBox();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtAno = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox4
+            // cbxAluno3
             // 
-            this.comboBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbxAluno3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(12, 273);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(260, 21);
-            this.comboBox4.TabIndex = 24;
+            this.cbxAluno3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxAluno3.FormattingEnabled = true;
+            this.cbxAluno3.Location = new System.Drawing.Point(12, 335);
+            this.cbxAluno3.Name = "cbxAluno3";
+            this.cbxAluno3.Size = new System.Drawing.Size(260, 21);
+            this.cbxAluno3.TabIndex = 24;
             // 
-            // comboBox3
+            // cbxAluno2
             // 
-            this.comboBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbxAluno2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(12, 246);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(260, 21);
-            this.comboBox3.TabIndex = 23;
+            this.cbxAluno2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxAluno2.FormattingEnabled = true;
+            this.cbxAluno2.Location = new System.Drawing.Point(12, 308);
+            this.cbxAluno2.Name = "cbxAluno2";
+            this.cbxAluno2.Size = new System.Drawing.Size(260, 21);
+            this.cbxAluno2.TabIndex = 23;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 203);
+            this.label4.Location = new System.Drawing.Point(12, 265);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 22;
             this.label4.Text = "Alunos:";
             // 
-            // comboBox2
+            // cbxAluno1
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbxAluno1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(12, 219);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(260, 21);
-            this.comboBox2.TabIndex = 21;
+            this.cbxAluno1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxAluno1.FormattingEnabled = true;
+            this.cbxAluno1.Location = new System.Drawing.Point(12, 281);
+            this.cbxAluno1.Name = "cbxAluno1";
+            this.cbxAluno1.Size = new System.Drawing.Size(260, 21);
+            this.cbxAluno1.TabIndex = 21;
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(161, 304);
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button2.Location = new System.Drawing.Point(161, 366);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(111, 23);
             this.button2.TabIndex = 20;
-            this.button2.Text = "Alterar Projeto";
+            this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 171);
+            this.label3.Location = new System.Drawing.Point(12, 233);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 19;
             this.label3.Text = "Orientador:";
             // 
-            // comboBox1
+            // cbxOrientador
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.cbxOrientador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(76, 168);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(196, 21);
-            this.comboBox1.TabIndex = 18;
+            this.cbxOrientador.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxOrientador.FormattingEnabled = true;
+            this.cbxOrientador.Location = new System.Drawing.Point(76, 230);
+            this.cbxOrientador.Name = "cbxOrientador";
+            this.cbxOrientador.Size = new System.Drawing.Size(196, 21);
+            this.cbxOrientador.TabIndex = 18;
             // 
             // txtDescricao
             // 
@@ -124,7 +128,7 @@
             this.txtDescricao.MaxLength = 100;
             this.txtDescricao.Multiline = true;
             this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(196, 88);
+            this.txtDescricao.Size = new System.Drawing.Size(196, 112);
             this.txtDescricao.TabIndex = 17;
             // 
             // txtNome
@@ -156,24 +160,56 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "Nome:";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 200);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 13);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Ano:";
+            // 
+            // txtAno
+            // 
+            this.txtAno.Location = new System.Drawing.Point(76, 197);
+            this.txtAno.Name = "txtAno";
+            this.txtAno.Size = new System.Drawing.Size(196, 20);
+            this.txtAno.TabIndex = 26;
+            this.txtAno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Location = new System.Drawing.Point(44, 366);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(111, 23);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Alterar Projeto";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // frmAlterarProjeto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 339);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.comboBox3);
+            this.ClientSize = new System.Drawing.Size(284, 401);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtAno);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.cbxAluno3);
+            this.Controls.Add(this.cbxAluno2);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.cbxAluno1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbxOrientador);
             this.Controls.Add(this.txtDescricao);
             this.Controls.Add(this.txtNome);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "frmAlterarProjeto";
             this.Text = "Alterar Projeto";
+            this.Load += new System.EventHandler(this.frmAlterarProjeto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,16 +217,19 @@
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox cbxAluno3;
+        private System.Windows.Forms.ComboBox cbxAluno2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cbxAluno1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbxOrientador;
         private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtAno;
+        private System.Windows.Forms.Button button1;
     }
 }

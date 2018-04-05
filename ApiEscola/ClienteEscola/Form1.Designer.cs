@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.dgvProjeto = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ano = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prof = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.al1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.al2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.al3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnConsultar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCodigo = new System.Windows.Forms.TextBox();
@@ -39,14 +47,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.desc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ano = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prof = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.al1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.al2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.al3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProjeto)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +69,46 @@
             this.dgvProjeto.Name = "dgvProjeto";
             this.dgvProjeto.Size = new System.Drawing.Size(849, 116);
             this.dgvProjeto.TabIndex = 0;
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            // 
+            // nome
+            // 
+            this.nome.HeaderText = "Nome";
+            this.nome.Name = "nome";
+            // 
+            // desc
+            // 
+            this.desc.HeaderText = "Descricao";
+            this.desc.Name = "desc";
+            // 
+            // ano
+            // 
+            this.ano.HeaderText = "Ano";
+            this.ano.Name = "ano";
+            // 
+            // prof
+            // 
+            this.prof.HeaderText = "Professor";
+            this.prof.Name = "prof";
+            // 
+            // al1
+            // 
+            this.al1.HeaderText = "Aluno 1";
+            this.al1.Name = "al1";
+            // 
+            // al2
+            // 
+            this.al2.HeaderText = "Aluno 2";
+            this.al2.Name = "al2";
+            // 
+            // al3
+            // 
+            this.al3.HeaderText = "Aluno 3";
+            this.al3.Name = "al3";
             // 
             // btnConsultar
             // 
@@ -149,6 +189,7 @@
             this.button3.TabIndex = 8;
             this.button3.Text = "Exclusão por Código";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -169,46 +210,7 @@
             this.button5.TabIndex = 10;
             this.button5.Text = "Inserir Projeto";
             this.button5.UseVisualStyleBackColor = true;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            // 
-            // nome
-            // 
-            this.nome.HeaderText = "Nome";
-            this.nome.Name = "nome";
-            // 
-            // desc
-            // 
-            this.desc.HeaderText = "Descricao";
-            this.desc.Name = "desc";
-            // 
-            // ano
-            // 
-            this.ano.HeaderText = "Ano";
-            this.ano.Name = "ano";
-            // 
-            // prof
-            // 
-            this.prof.HeaderText = "Professor";
-            this.prof.Name = "prof";
-            // 
-            // al1
-            // 
-            this.al1.HeaderText = "Aluno 1";
-            this.al1.Name = "al1";
-            // 
-            // al2
-            // 
-            this.al2.HeaderText = "Aluno 2";
-            this.al2.Name = "al2";
-            // 
-            // al3
-            // 
-            this.al3.HeaderText = "Aluno 3";
-            this.al3.Name = "al3";
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // frmCliente
             // 

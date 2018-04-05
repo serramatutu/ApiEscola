@@ -8,4 +8,5 @@ O projeto é da disciplina de Aplicações Distribuídas, lecionada pela profess
 
 
 ## Todo
-
+[ ] - Buscar todos os projetos
+[ ] - Buscar todos os alunos e professores

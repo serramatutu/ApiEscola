@@ -24,7 +24,7 @@ namespace ClienteEscola
             InitializeComponent();
         }
 
-        public async void getByName(string nome)
+        public async void GetByName(string nome)
         {
             dgvProjeto.Rows.Clear();
             /*
@@ -63,7 +63,7 @@ namespace ClienteEscola
                 MessageBox.Show($"Não foi possível obter o projeto com o nome {nome}");
         }
 
-        private async void getById (string guid)
+        private async void GetById (string guid)
         {
             dgvProjeto.Rows.Clear();
             /*
@@ -99,14 +99,54 @@ namespace ClienteEscola
                 MessageBox.Show($"Não foi possível obter o projeto com o código {guid}");
         }
 
+        private async void DeleteProject(string guid)
+        {
+            response = await client.GetAsync(URI + $"delete/{guid}");
+            if (response.IsSuccessStatusCode)
+                MessageBox.Show("Projeto deletado com sucesso");
+            else
+                MessageBox.Show("Não foi possível deletar o projeto");
+        }
+
+        private async void InsertProject (Projeto p)
+        {
+            response = await client.GetAsync(URI + $"insert");
+
+            var serializedProjeto = JsonConvert.SerializeObject(p);
+            //A classe StringContent adiciona o conteúdo json em um objeto HTTP
+            var content = new StringContent(serializedProjeto, Encoding.UTF8, "application/json");
+
+            response = await client.PostAsync(URI, content);
+
+            if (response.IsSuccessStatusCode)
+                MessageBox.Show("Projeto inserido com sucesso");
+            else
+                MessageBox.Show("Não foi possível inserir o projeto");
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
-            getByName(txtNome.Text);
+            GetByName(txtNome.Text);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            getById(txtCodigo.Text);
+            GetById(txtCodigo.Text);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DeleteProject(txtCodigo.Text);
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            frmInserirProjeto Form2 = new frmInserirProjeto();
+
+            if (Form2.ShowDialog(this) == DialogResult.OK)
+                InsertProject(Form2.NovoProjeto);
+
+            Form2.Close();
         }
     }
 }
