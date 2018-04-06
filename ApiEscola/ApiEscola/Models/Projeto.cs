@@ -23,7 +23,7 @@ namespace ApiEscola.Models
         {
             get
             {
-                return new List<Aluno>(_alunos);
+                return _alunos;
             }
             set
             {

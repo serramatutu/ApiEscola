@@ -102,7 +102,6 @@ namespace ApiEscola.Models.Repos
                 };
 
                 idProfessor = r.GetGuid(3);
-                System.Diagnostics.Debug.WriteLine("!!!!!!!!!!!! " + idProfessor);
             }
 
             if (p == null)
