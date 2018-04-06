@@ -62,6 +62,13 @@ namespace ApiEscola.Models.Repos
             cp.Parameters.AddWithValue("@id", p.Id);
             cp.ExecuteNonQuery();
 
+            // Remove todas as relaçoes
+            SqlCommand update = new SqlCommand(
+                "UPDATE ApiAluno SET idProjeto=NULL WHERE idProjeto=@id",
+            conn);
+            update.Parameters.AddWithValue("@id", p.Id);
+            update.ExecuteNonQuery();
+
             // Modifica os alunos
             foreach (Aluno a in p.Alunos)
             {
