@@ -361,9 +361,9 @@ namespace ClienteEscola
             if (p.Alunos.Count >= 1)
                 cbxAluno1.SelectedIndex = cbxAluno1.FindString(p.Alunos[0].ToString());
             if (p.Alunos.Count >= 2)
-                cbxAluno1.SelectedIndex = cbxAluno2.FindString(p.Alunos[1].ToString());
+                cbxAluno2.SelectedIndex = cbxAluno2.FindString(p.Alunos[1].ToString());
             if (p.Alunos.Count >= 3)
-                cbxAluno1.SelectedIndex = cbxAluno3.FindString(p.Alunos[2].ToString());
+                cbxAluno3.SelectedIndex = cbxAluno3.FindString(p.Alunos[2].ToString());
         }
 
         public Projeto ProjetoAlterar

@@ -28,26 +28,9 @@ namespace ClienteEscola
         public async void GetByName(string nome)
         {
             dgvProjeto.Rows.Clear();
-            /*
-            * Método HttpClient.GetAsync (Uri)
-            *
-            * Envia uma requisição GET para o URI especificado
-            * com uma operação assíncrona.
-            */
-            //O objeto response(HttpResponseMessage) recebe a resposta do envio de requisição ao endereço URI
             response = await client.GetAsync(URI + $"getbyname/{nome}");
-            //Se o envio de requisição fdor atendido
             if (response.IsSuccessStatusCode)
             {
-                /*
-                * Propriedade HttpResponseMessage.Content
-                * Obtém ou define o conteúdo de uma mensagem de resposta HTTP.
-                *
-                * Para criar código assíncrono usamos as palavras chaves async
-                * e await onde por padrão um método modificado por uma palavra-chave
-                * async contém pelo menos uma expressão await.
-                */
-                //A variável AlunoJsonString recebe o resultado da requisição
                 var ProjetoJsonString = await response.Content.ReadAsStringAsync();
 
                 var result = JsonConvert.DeserializeObject<List<Projeto>>(ProjetoJsonString);
@@ -67,26 +50,9 @@ namespace ClienteEscola
         private async void GetById (string guid)
         {
             dgvProjeto.Rows.Clear();
-            /*
-            * Método HttpClient.GetAsync (Uri)
-            *
-            * Envia uma requisição GET para o URI especificado
-            * com uma operação assíncrona.
-            */
-            //O objeto response(HttpResponseMessage) recebe a resposta do envio de requisição ao endereço URI
             response = await client.GetAsync(URI + $"getbyid/{guid}");
-            //Se o envio de requisição fdor atendido
             if (response.IsSuccessStatusCode)
             {
-                /*
-                * Propriedade HttpResponseMessage.Content
-                * Obtém ou define o conteúdo de uma mensagem de resposta HTTP.
-                *
-                * Para criar código assíncrono usamos as palavras chaves async
-                * e await onde por padrão um método modificado por uma palavra-chave
-                * async contém pelo menos uma expressão await.
-                */
-                //A variável AlunoJsonString recebe o resultado da requisição
                 var ProjetoJsonString = await response.Content.ReadAsStringAsync();
 
                 var result = JsonConvert.DeserializeObject<Projeto>(ProjetoJsonString);
@@ -105,7 +71,7 @@ namespace ClienteEscola
             response = await client.DeleteAsync(URI + $"delete/{guid}");
             if (response.IsSuccessStatusCode)
             {
-                prof = null;
+                proj = null;
                 MessageBox.Show("Projeto deletado com sucesso");
             }
             else
@@ -138,6 +104,25 @@ namespace ClienteEscola
                 MessageBox.Show("Projeto alterado com sucesso");
             else
                 MessageBox.Show("Não foi possível alterar o projeto");
+        }
+
+        private async void GetAll()
+        {
+            dgvProjeto.Rows.Clear();
+            response = await client.GetAsync(URI + "getall");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<List<Projeto>>(await response.Content.ReadAsStringAsync());
+
+                for (int i = 0; i < result.Count; i++)
+                {
+                    Projeto p = result[i];
+                    dgvProjeto.Rows.Add(p.Id, p.Nome, p.Descricao, p.Ano, p.Professor.Nome);
+                    for (int j = 0; j < p.Alunos.Count; j++)
+                        dgvProjeto.Rows[i].Cells[5 + j].Value = p.Alunos[j].Nome;
+                }
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -180,6 +165,7 @@ namespace ClienteEscola
             {
                 if (Form2.ShowDialog(this) == DialogResult.OK)
                     ChangeProject(Form2.ProjetoAlterar);
+                proj = Form2.ProjetoAlterar;
             }
             catch (Exception)
             {
@@ -187,6 +173,11 @@ namespace ClienteEscola
             }
 
             Form2.Close();
+        }
+
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            GetAll();
         }
     }
 }

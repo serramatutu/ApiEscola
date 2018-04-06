@@ -120,6 +120,7 @@
             this.btnConsultar.TabIndex = 1;
             this.btnConsultar.Text = "Consultar Projetos";
             this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
             // label1
             // 
