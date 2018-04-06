@@ -29,5 +29,7 @@ namespace ApiEscola.Models
 
         [StringLength(50, ErrorMessage = "E-mail muito grande")]
         public string Email { get; set; }
+
+        public override string ToString() => Nome;
     }
 }
