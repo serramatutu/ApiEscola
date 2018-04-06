@@ -14,6 +14,13 @@ namespace ApiEscola.Controllers
     {
         DatabaseProjetoRepository repo = new DatabaseProjetoRepository();
 
+        [Route("getall")]
+        [HttpGet]
+        public IEnumerable<Projeto> GetAll()
+        {
+            return repo.GetAll();
+        }
+
         [Route("getbyname/{nome}")]
         [HttpGet]
         public IEnumerable<Projeto> GetProjetos([FromUri]string nome)

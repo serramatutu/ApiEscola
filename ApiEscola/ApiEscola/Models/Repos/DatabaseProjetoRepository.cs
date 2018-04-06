@@ -142,8 +142,6 @@ namespace ApiEscola.Models.Repos
                 }
             }
 
-            conn.Close();
-
             return p;
         }
 
@@ -180,6 +178,65 @@ namespace ApiEscola.Models.Repos
             comm.ExecuteNonQuery();
 
             conn.Close();
+        }
+
+        public IEnumerable<Projeto> GetAll()
+        {
+            SqlConnection conn = GetConnection();
+
+            SqlCommand comm = new SqlCommand( // prêmio string do ano :D
+                @"SELECT proj.IdProjeto as IdProjeto, proj.nome as NomeProj, proj.descricao as DescricaoProj, 
+	                    prof.idProfessor as IdProfessor, prof.nome as NomeProfessor, prof.email as EmailProfessor
+                 FROM ApiProjeto proj 
+                 INNER JOIN ApiProfessor prof ON proj.IdProfessor = prof.IdProfessor",
+            conn);
+
+            List<Projeto> l = new List<Projeto>();
+            using (SqlDataReader r = comm.ExecuteReader())
+            {
+                while (r.Read())
+                {
+                    Projeto p = new Projeto()
+                    {
+                        Id = (Guid)r["IdProjeto"],
+                        Nome = (string)r["NomeProj"],
+                        Descricao = (string)r["DescricaoProj"]
+                    };
+                    p.Professor = new Professor()
+                    {
+                        Id = (Guid)r["IdProfessor"],
+                        Nome = (string)r["NomeProfessor"],
+                        Email = (string)r["EmailProfessor"]
+                    };
+
+                    l.Add(p);
+                }
+            }
+
+            // Seleciona os alunos
+            foreach (Projeto p in l)
+            {
+                SqlCommand cal = new SqlCommand(
+                    "SELECT RA, Nome, Email FROM ApiAluno WHERE idProjeto=@id",
+                conn);
+                cal.Parameters.AddWithValue("@id", p.Id);
+
+                using (SqlDataReader r2 = cal.ExecuteReader())
+                {
+                    while (r2.Read())
+                    {
+                        p.Alunos.Add(new Aluno()
+                        {
+                            RA = r2.GetString(0),
+                            Nome = r2.GetString(1),
+                            Email = r2.GetString(2)
+                        });
+                    }
+                }
+            }
+
+            conn.Close();
+            return l;
         }
     }
 }

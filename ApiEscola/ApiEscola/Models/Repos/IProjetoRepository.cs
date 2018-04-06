@@ -7,6 +7,10 @@ namespace ApiEscola.Models.Repos
 {
     public interface IProjetoRepository
     {
+        IEnumerable<Projeto> GetAll();
+
+        Projeto GetProjetoById(Guid id);
+
         IEnumerable<Projeto> GetProjetoByName(string nome);
 
         void AddProjeto(Projeto p);
