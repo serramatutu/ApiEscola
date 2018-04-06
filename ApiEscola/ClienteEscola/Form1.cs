@@ -56,7 +56,7 @@ namespace ClienteEscola
                     Projeto p = result[i];
                     dgvProjeto.Rows.Add(p.Id, p.Nome, p.Descricao, p.Ano, p.Professor.Nome);
                     for (int j = 0; j < p.Alunos.Count; j++)
-                        dgvProjeto.CurrentRow.Cells[5 + j].Value = p.Alunos[j].Nome;
+                        dgvProjeto.Rows[i].Cells[5 + j].Value = p.Alunos[j].Nome;
                 }
 
             }
@@ -93,7 +93,7 @@ namespace ClienteEscola
                 proj = result;
                 dgvProjeto.Rows.Add(proj.Id, proj.Nome, proj.Descricao, proj.Ano, proj.Professor.Nome);
                 for (int j = 0; j < proj.Alunos.Count; j++)
-                    dgvProjeto.CurrentRow.Cells[5 + j].Value = proj.Alunos[j].Nome;
+                    dgvProjeto.Rows[0].Cells[5 + j].Value = proj.Alunos[j].Nome;
 
             }
             else
@@ -102,22 +102,23 @@ namespace ClienteEscola
 
         private async void DeleteProject(string guid)
         {
-            response = await client.GetAsync(URI + $"delete/{guid}");
+            response = await client.DeleteAsync(URI + $"delete/{guid}");
             if (response.IsSuccessStatusCode)
+            {
+                prof = null;
                 MessageBox.Show("Projeto deletado com sucesso");
+            }
             else
                 MessageBox.Show("Não foi possível deletar o projeto");
         }
 
         private async void InsertProject (Projeto p)
         {
-            response = await client.GetAsync(URI + $"insert");
-
             var serializedProjeto = JsonConvert.SerializeObject(p);
             //A classe StringContent adiciona o conteúdo json em um objeto HTTP
             var content = new StringContent(serializedProjeto, Encoding.UTF8, "application/json");
 
-            response = await client.PostAsync(URI, content);
+            response = await client.PostAsync(URI + "insert", content);
 
             if (response.IsSuccessStatusCode)
                 MessageBox.Show("Projeto inserido com sucesso");
@@ -127,18 +128,16 @@ namespace ClienteEscola
 
         private async void ChangeProject (Projeto p)
         {
-            response = await client.GetAsync(URI + $"change");
-
             var serializedProjeto = JsonConvert.SerializeObject(p);
             //A classe StringContent adiciona o conteúdo json em um objeto HTTP
             var content = new StringContent(serializedProjeto, Encoding.UTF8, "application/json");
 
-            response = await client.PostAsync(URI, content);
+            response = await client.PutAsync(URI + "change", content);
 
             if (response.IsSuccessStatusCode)
-                MessageBox.Show("Projeto inserido com sucesso");
+                MessageBox.Show("Projeto alterado com sucesso");
             else
-                MessageBox.Show("Não foi possível inserir o projeto");
+                MessageBox.Show("Não foi possível alterar o projeto");
         }
 
         private void button2_Click(object sender, EventArgs e)

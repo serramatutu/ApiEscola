@@ -37,7 +37,7 @@ namespace ApiEscola.Models.Repos
                     "UPDATE ApiAluno SET idProjeto=@proj WHERE RA=@ra",
                 conn);
                 ca.Parameters.AddWithValue("@ra", a.RA);
-                ca.Parameters.AddWithValue("@idProjeto", p.Id);
+                ca.Parameters.AddWithValue("@proj", p.Id);
 
                 ca.ExecuteNonQuery();
             }
@@ -141,9 +141,7 @@ namespace ApiEscola.Models.Repos
                     });
                 }
             }
-
-            conn.Close();
-
+            
             return p;
         }
 

@@ -380,6 +380,7 @@ namespace ClienteEscola
 
                 return new Projeto()
                 {
+                    Id = p.Id,
                     Nome = txtNome.Text,
                     Descricao = txtDescricao.Text,
                     Ano = int.Parse(txtAno.Text),
