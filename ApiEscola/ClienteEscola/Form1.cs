@@ -18,6 +18,7 @@ namespace ClienteEscola
         private string URI = "http://localhost:49442/api/projetos/";
         HttpClient client = new HttpClient();
         HttpResponseMessage response = new HttpResponseMessage();
+        Projeto proj = null;
 
         public frmCliente()
         {
@@ -89,10 +90,10 @@ namespace ClienteEscola
                 var ProjetoJsonString = await response.Content.ReadAsStringAsync();
 
                 var result = JsonConvert.DeserializeObject<Projeto>(ProjetoJsonString);
-                Projeto p = result;
-                dgvProjeto.Rows.Add(p.Id, p.Nome, p.Descricao, p.Ano, p.Professor.Nome);
-                for (int j = 0; j < p.Alunos.Count; j++)
-                    dgvProjeto.CurrentRow.Cells[5 + j].Value = p.Alunos[j].Nome;
+                proj = result;
+                dgvProjeto.Rows.Add(proj.Id, proj.Nome, proj.Descricao, proj.Ano, proj.Professor.Nome);
+                for (int j = 0; j < proj.Alunos.Count; j++)
+                    dgvProjeto.CurrentRow.Cells[5 + j].Value = proj.Alunos[j].Nome;
 
             }
             else
@@ -111,6 +112,22 @@ namespace ClienteEscola
         private async void InsertProject (Projeto p)
         {
             response = await client.GetAsync(URI + $"insert");
+
+            var serializedProjeto = JsonConvert.SerializeObject(p);
+            //A classe StringContent adiciona o conteúdo json em um objeto HTTP
+            var content = new StringContent(serializedProjeto, Encoding.UTF8, "application/json");
+
+            response = await client.PostAsync(URI, content);
+
+            if (response.IsSuccessStatusCode)
+                MessageBox.Show("Projeto inserido com sucesso");
+            else
+                MessageBox.Show("Não foi possível inserir o projeto");
+        }
+
+        private async void ChangeProject (Projeto p)
+        {
+            response = await client.GetAsync(URI + $"change");
 
             var serializedProjeto = JsonConvert.SerializeObject(p);
             //A classe StringContent adiciona o conteúdo json em um objeto HTTP
@@ -143,8 +160,32 @@ namespace ClienteEscola
         {
             frmInserirProjeto Form2 = new frmInserirProjeto();
 
-            if (Form2.ShowDialog(this) == DialogResult.OK)
-                InsertProject(Form2.NovoProjeto);
+            try
+            {
+                if (Form2.ShowDialog(this) == DialogResult.OK)
+                    InsertProject(Form2.NovoProjeto);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocorreu um erro ao inserir o projeto, por favor tente novamente");
+            }
+
+            Form2.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            frmAlterarProjeto Form2 = new frmAlterarProjeto(proj);
+
+            try
+            {
+                if (Form2.ShowDialog(this) == DialogResult.OK)
+                    ChangeProject(Form2.ProjetoAlterar);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocorreu um erro ao alterar o projeto, por favor tente novamente");
+            }
 
             Form2.Close();
         }
