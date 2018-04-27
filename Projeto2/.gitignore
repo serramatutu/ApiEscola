@@ -1,4 +1,4 @@
-/api/dbconfig.json # remove as configurações de banco de dados
+﻿api/dbconfig.json # remove as configurações de banco de dados
 
 # Created by https://www.gitignore.io/api/java,node,android,androidstudio
 
