@@ -1,0 +1,8 @@
+{
+    "userName": "bd16187",
+    "password": "m11l15w8e1",
+    "server": "regulus.cotuca.unicamp.br",
+    "options": {
+        "rowCollectionOnRequestCompletion": true
+    }
+}
