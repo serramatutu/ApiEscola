@@ -8,15 +8,26 @@ import java.sql.Time;
 
 public class HorarioMonitoria {
     private String ra;
+    private String diaDaSemana;
+    private Time horario;
 
-    public HorarioMonitoria(String ra, String diaDaSemana, Time horario) throws Exception{
+    private String lab;
+
+    public HorarioMonitoria(String ra, String diaDaSemana, Time horario, String lab) throws Exception{
         this.setRa(ra);
         this.setDiaDaSemana(diaDaSemana);
         this.setHorario(horario);
+        this.setLab(lab);
     }
 
-    private String diaDaSemana;
-    private Time horario;
+    public HorarioMonitoria(String ra, String diaDaSemana, String horario, String lab) throws Exception{
+        this.setRa(ra);
+        this.setDiaDaSemana(diaDaSemana);
+        this.setHorario(horario);
+        this.setLab(lab);
+    }
+
+    public HorarioMonitoria() {}
 
     public String getRa() {
         return ra;
@@ -49,5 +60,28 @@ public class HorarioMonitoria {
             throw new Exception("Horário nulo");
 
         this.horario = horario;
+    }
+
+    public void setHorario(String horario) throws Exception {
+        if (horario == null || horario == "")
+            throw new Exception("Horário nulo");
+
+        this.horario = new Time(Integer.parseInt(horario.substring(0,2)), Integer.parseInt(horario.substring(3)), 0);
+    }
+
+    public String getLab() {
+        return lab;
+    }
+
+    public void setLab(String lab) throws Exception{
+        if (lab == null || lab == "")
+            throw new Exception("Laboratório nulo");
+
+        this.lab = lab;
+    }
+
+    public String toString ()
+    {
+        return diaDaSemana + " - "  + horario.toString() + " - " + lab;
     }
 }

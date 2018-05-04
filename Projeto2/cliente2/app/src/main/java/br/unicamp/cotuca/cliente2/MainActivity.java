@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
             monitores.add(new Monitor("Guilherme \"Bronze\" Brandt", "16173", R.drawable._16173));
             monitores.add(new Monitor("Igor Mandello", "16179",R.drawable._16179));
             monitores.add(new Monitor("Lucas \"Hideki\" Dinnouti", "16185", R.drawable._16185));
+            monitores.add(new Monitor("Luís Sanchez", "17293", R.drawable._17293));
         }
         catch (Exception ex) { }
 
@@ -42,9 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
                 Bundle params = new Bundle();
                 String msgRa = ((Monitor)adapterView.getItemAtPosition(i)).getRa();
+                String msgNome = ((Monitor)adapterView.getItemAtPosition(i)).getNome();
 
                 //params.putString("ra", msgRa);
                 intent.putExtra("ra", msgRa);
+                intent.putExtra("nome", msgNome);
 
                 intent.putExtras(intent);
                 startActivity(intent);
